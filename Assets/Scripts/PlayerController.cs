@@ -1,3 +1,4 @@
+using System.Collections;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -18,16 +19,20 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput = 0.0f;
     private InputAction moveAction;
     private InputAction shootAction;
+    private float shootCoolDown = .5f;
     bool isMove = true;
     bool isSprint;
     bool isGrounded;
     bool isShoot;
     Rigidbody rb;
-    private void Awake()
+    private float nextTime = 0;
+    private float nextShootTime = 0;
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         moveAction = InputSystem.actions.FindAction("Move");
         shootAction = InputSystem.actions.FindAction("Shoot");
+        shootAction.Enable();
     }
 
     // Update is called once per frame
@@ -61,10 +66,11 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        isShoot = shootAction.triggered;
-        if (isShoot)
+        isShoot = shootAction.IsPressed();
+        if(isShoot && Time.time > nextShootTime)
         {
             Instantiate(foodPrefeb, shootPos.position, Quaternion.identity);
+            nextShootTime = Time.time + shootCoolDown;
         }
     }
 

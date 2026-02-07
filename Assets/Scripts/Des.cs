@@ -16,6 +16,8 @@ public class Des : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Hit");
         Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

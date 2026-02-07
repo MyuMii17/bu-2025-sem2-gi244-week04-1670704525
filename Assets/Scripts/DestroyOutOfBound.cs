@@ -14,8 +14,4 @@ public class DestroyOutOfBound : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void TakeDamage()
-    {
-        Destroy(gameObject);
-    }
 }
