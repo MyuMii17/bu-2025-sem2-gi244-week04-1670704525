@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     bool isGrounded;
     bool isShoot;
     Rigidbody rb;
-    private float nextTime = 0;
     private float nextShootTime = 0;
     void Awake()
     {
